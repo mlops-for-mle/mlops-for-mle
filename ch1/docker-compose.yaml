@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:14.0
+    container_name: postgres-server
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+      TZ: Asia/Seoul
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres", "-d", "mydatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  data-generator:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: data-generator-server
+    environment:
+      TZ: Asia/Seoul
+    command: ["bash", "-c", "DB_HOST='db' python create_table.py;DB_HOST='db' python generate_data.py"]
+    tty: true
+    depends_on:
+      db:
+        condition: service_healthy
