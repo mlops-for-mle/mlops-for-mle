@@ -1,0 +1,1 @@
+from mlflow.pyfunc import load_model

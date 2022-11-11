@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:14.0
+    container_name: mlflow-postgres
+    networks:
+      - rpms
+    environment:
+      POSTGRES_USER: "mrx"
+      POSTGRES_PASSWORD: "mypassword"
+    volumes:
+      - /data/mlflow/postgres:/var/lib/postgresql/data
+
+  mlflow:
+    platform: linux/amd64
+    container_name: hmcra-mlflow
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mlflow
+    depends_on:
+      - postgres
+    networks:
+      - rpms
+    ports:
+      - "5000:5000"
+    command: "mlflow server --backend-store-uri postgresql://mrx:mypassword@hmcra-postgres/postgres --default-artifact-root file:///data/mlflow --host 0.0.0.0"
+    volumes:
+      - "/data/mlflow:/data/mlflow"
+
+networks:
+  rpms:
+    external:
+      name: rpms
