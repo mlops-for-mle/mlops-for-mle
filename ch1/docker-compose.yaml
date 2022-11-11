@@ -5,7 +5,7 @@ services:
     image: postgres:14.0
     container_name: postgres-server
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
       TZ: Asia/Seoul
@@ -13,7 +13,7 @@ services:
       - 5432:5432
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres", "-d", "mydatabase"]
+      test: ["CMD", "pg_isready", "-q", "-U", "myuser", "-d", "mydatabase"]
       interval: 10s
       timeout: 5s
       retries: 5

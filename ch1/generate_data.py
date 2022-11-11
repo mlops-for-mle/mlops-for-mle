@@ -48,7 +48,7 @@ def generate_data(db_connect: connection, df: pd.DataFrame) -> None:
 
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
-        user="postgres", 
+        user="myuser", 
         password="mypassword",
         host=DB_HOST,
         port=5432,

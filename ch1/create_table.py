@@ -24,7 +24,7 @@ def create_table(db_connect: connection) -> None:
 
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
-        user="postgres", 
+        user="myuser", 
         password="mypassword",
         host=DB_HOST,
         port=5432,
