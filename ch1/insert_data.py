@@ -1,5 +1,3 @@
-import os
-
 import pandas as pd
 import psycopg2
 from psycopg2.extensions import connection
@@ -24,11 +22,11 @@ def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
     INSERT INTO iris_data
         (sepal_length, sepal_width, petal_length, petal_width, target)
         VALUES (
-            {data.sepal_length.values[0]},
-            {data.sepal_width.values[0]},
-            {data.petal_length.values[0]},
-            {data.petal_width.values[0]},
-            {data.target.values[0]}
+            {data.sepal_length},
+            {data.sepal_width},
+            {data.petal_length},
+            {data.petal_width},
+            {data.target}
         );
     """
     print(insert_row_query)
@@ -46,4 +44,4 @@ if __name__ == "__main__":
         database="mydatabase",
     )
     df = get_data()
-    insert_data(db_connect, df.sample(1))
+    insert_data(db_connect, df.sample(1).squeeze())
