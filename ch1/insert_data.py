@@ -27,8 +27,7 @@ def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
             {data.petal_length},
             {data.petal_width},
             {data.target}
-        );
-    """
+        );"""
     print(insert_row_query)
     with db_connect.cursor() as cur:
         cur.execute(insert_row_query)
