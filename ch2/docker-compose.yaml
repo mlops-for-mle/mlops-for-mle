@@ -1,33 +1,48 @@
 version: "3.7"
 services:
-  db:
+  backend-store:
     image: postgres:14.0
-    container_name: mlflow-postgres
-    networks:
-      - rpms
+    container_name: backend-store
     environment:
-      POSTGRES_USER: "mrx"
+      POSTGRES_USER: "myuser"
       POSTGRES_PASSWORD: "mypassword"
-    volumes:
-      - /data/mlflow/postgres:/var/lib/postgresql/data
+      POSTGRES_DB: "postgres"
+
+  artifact-store:
+    image: minio/minio
+    container_name: artifact-store
+    working_dir: /myminio/storage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: "mystorage"
+      MINIO_ROOT_PASSWORD: "mystoragepw"
+    command: server /myminio/storage --console-address :9001
 
   mlflow:
     platform: linux/amd64
-    container_name: hmcra-mlflow
+    container_name: mlflow
     build:
       context: .
-      dockerfile: ./Dockerfile.mlflow
+      dockerfile: ./Dockerfile
     depends_on:
-      - postgres
-    networks:
-      - rpms
+    - backend-store
+    - artifact-store
     ports:
       - "5000:5000"
-    command: "mlflow server --backend-store-uri postgresql://mrx:mypassword@hmcra-postgres/postgres --default-artifact-root file:///data/mlflow --host 0.0.0.0"
-    volumes:
-      - "/data/mlflow:/data/mlflow"
-
-networks:
-  rpms:
-    external:
-      name: rpms
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://artifact-store:9000
+      AWS_ACCESS_KEY_ID: "mystorage"
+      AWS_SECRET_ACCESS_KEY: "mystoragepw"
+      AWS_BUCKET: mlflow
+    command:
+      - /bin/sh
+      - -c
+      - |
+        mc config host add mlflowminio http://artifact-store:9000 mystorage mystoragepw &&
+        mc mb --ignore-existing mlflowminio/mlflow
+        mlflow server \
+        --backend-store-uri postgresql://myuser:mypassword@backend-store/postgres \
+        --default-artifact-root s3://mlflow/ \
+        --host 0.0.0.0
