@@ -1,1 +1,1 @@
-# mlops-for-mle
+# MLOps for MLE

@@ -1,0 +1,42 @@
+name: "Automation] Pull Request"
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened, closed]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anencore94/labeler@v1.1.0
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  assign-reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: reviewers
+        uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ github.actor }}
+          reviewers: Aiden-Jeon, dongminlee94, Kimdongui, datawhales
+          max-num-of-reviewers: 3
+          draft-keyword: WIP
+
+  size-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: size-label
+        uses: pascalgn/size-label-action@v0.4.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          sizes: >
+            {
+              "0": "XS",
+              "8": "S",
+              "40": "M",
+              "110": "L",
+              "400": "XL",
+              "1000": "XXL",
+              "3000": "XXXL"
+            }
