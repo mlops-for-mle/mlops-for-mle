@@ -36,7 +36,7 @@ def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
 
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
-        user="myuser", 
+        user="myuser",
         password="mypassword",
         host="localhost",
         port=5432,
