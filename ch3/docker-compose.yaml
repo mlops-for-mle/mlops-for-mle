@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:14.0
+    container_name: db-server
+    environment:
+      POSTGRES_DB: dbforapi
+      POSTGRES_USER: userforapi
+      POSTGRES_PASSWORD: pwforapi
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "userforapi", "-d", "dbforapi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: api-server
+    environment:
+      - SQLALCHEMY_DATABASE_URL=postgresql://userforapi:pwforapi@db:5432/dbforapi
+    ports:
+      - 7777:7777
+    depends_on:
+      db:
+        condition: service_healthy
