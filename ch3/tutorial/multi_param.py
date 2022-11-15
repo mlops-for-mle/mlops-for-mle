@@ -15,6 +15,6 @@ async def read_user_item(
         item.update({"q": q})
     if not short:
         item.update(
-            {"description": "This is an amazing item that has a long description"}
+            {"description": "This is an amazing item that has a long description"},
         )
     return item
