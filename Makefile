@@ -7,5 +7,5 @@ init:
 	pre-commit install
 
 format:
-	black .
+	black . --line-length 110
 	isort .
