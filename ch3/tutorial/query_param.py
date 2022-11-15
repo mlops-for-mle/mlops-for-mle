@@ -3,11 +3,7 @@ from fastapi import FastAPI
 # Create a FastAPI instance
 app = FastAPI()
 
-fake_items_db = [
-		{"item_name": "Foo"},
-		{"item_name": "Bar"},
-		{"item_name": "Baz"}
-]
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
 
 
 @app.get("/items/")
