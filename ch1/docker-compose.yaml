@@ -26,7 +26,6 @@ services:
     environment:
       TZ: Asia/Seoul
     command: ["bash", "-c", "DB_HOST='db' python create_table.py;DB_HOST='db' python generate_data.py"]
-    tty: true
     depends_on:
       db:
         condition: service_healthy
