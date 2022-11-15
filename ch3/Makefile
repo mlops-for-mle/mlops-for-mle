@@ -7,4 +7,4 @@ server:
 
 server-clean:
 	docker-compose down -v
-	docker rmi ch3_api
+	docker rmi ch3-api
