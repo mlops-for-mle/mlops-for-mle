@@ -8,4 +8,4 @@ init:
 
 format:
 	black . --line-length 110
-	isort .
+	isort . --skip-gitignore --profile black
