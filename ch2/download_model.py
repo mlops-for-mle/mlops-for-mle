@@ -62,7 +62,7 @@ def download_from_mlflow(model_uri: str):
     Returns:
         RandomForestClassifier: trained model.
     """
-    pyfunc_model = mlflow.pyfunc.load_model(model_uri)
+    pyfunc_model = mlflow.sklearn.load_model(model_uri)
     return pyfunc_model
 
 
