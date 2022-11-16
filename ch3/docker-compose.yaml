@@ -33,12 +33,12 @@ services:
       timeout: 20s
       retries: 3
 
-  mlflow:
+  mlflow-server:
     platform: linux/amd64
-    container_name: mlflow
     build:
       context: .
       dockerfile: ./Dockerfile
+    container_name: mlflow
     ports:
       - 5000:5000
     environment:

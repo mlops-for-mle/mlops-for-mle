@@ -7,4 +7,4 @@ server:
 
 server-clean:
 	docker-compose down -v
-	docker rmi ch3-mlflow
+	docker rmi ch3-mlflow-server
