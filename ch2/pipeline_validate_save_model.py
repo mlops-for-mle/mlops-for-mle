@@ -1,4 +1,4 @@
-# base_validate_save_model.py
+# pipeline_validate_save_model.py
 
 import joblib
 from sklearn.datasets import load_iris

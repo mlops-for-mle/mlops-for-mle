@@ -12,11 +12,11 @@ y = df["target"]
 X_train, X_valid, y_train, y_valid = train_test_split(X, y, train_size=0.8, random_state=2022)
 
 # 2. load model
-rf_load = joblib.load("db_rf.joblib")
+pipeline_load = joblib.load("db_pipeline.joblib")
 
 # 3. validate
-load_train_pred = rf_load.predict(X_train)
-load_valid_pred = rf_load.predict(X_valid)
+load_train_pred = pipeline_load.predict(X_train)
+load_valid_pred = pipeline_load.predict(X_valid)
 
 load_train_acc = accuracy_score(y_true=y_train, y_pred=load_train_pred)
 load_valid_acc = accuracy_score(y_true=y_valid, y_pred=load_valid_pred)
