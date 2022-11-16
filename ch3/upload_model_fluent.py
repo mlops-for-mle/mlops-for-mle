@@ -19,8 +19,8 @@ os.environ["AWS_SECRET_ACCESS_KEY"] = "mystoragepw"
 # 1. get data
 db_connect = psycopg2.connect(
     host="localhost",
-    database="postgres",
-    user="postgres",
+    database="mydatabase",
+    user="myuser",
     password="mypassword",
 )
 df = pd.read_sql("SELECT * FROM iris_data ORDER BY id DESC LIMIT 10", db_connect)
