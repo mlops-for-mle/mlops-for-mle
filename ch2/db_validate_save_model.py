@@ -6,18 +6,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 # 1. reproduce data
-df = pd.load_csv("data.csv")
+df = pd.read_csv("data.csv")
 X = df.drop(["id", "target"], axis="columns")
 y = df["target"]
-X_train, X_valid, y_train, y_valid = train_test_split(
-    X,
-    y,
-    train_size=0.8,
-    random_seed=2022,
-)
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, train_size=0.8, random_state=2022)
 
 # 2. load model
-rf_load = joblib.load("rf.joblib")
+rf_load = joblib.load("db_rf.joblib")
 
 # 3. validate
 load_train_pred = rf_load.predict(X_train)
