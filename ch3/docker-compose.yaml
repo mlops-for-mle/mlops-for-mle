@@ -55,5 +55,7 @@ services:
         --default-artifact-root s3://mlflow/ \
         --host 0.0.0.0
     depends_on:
-      - backend-store
-      - artifact-store
+      backend-store:
+        condition: service_healthy
+      artifact-store:
+        condition: service_healthy
