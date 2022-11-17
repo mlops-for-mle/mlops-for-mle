@@ -18,6 +18,7 @@ app = FastAPI()
 # User database
 USER_DB = {}
 
+# Fail response
 NAME_NOT_FOUND = HTTPException(status_code=400, detail="Name not found.")
 
 
