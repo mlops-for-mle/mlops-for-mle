@@ -2,7 +2,7 @@ version: "3"
 services:
   mlflow-backend-store:
     image: postgres:14.0
-    container_name: backend-store
+    container_name: mlflow-backend-store
     environment:
       POSTGRES_USER: mlflowuser
       POSTGRES_PASSWORD: mlflowpassword
@@ -16,7 +16,7 @@ services:
 
   mlflow-artifact-store:
     image: minio/minio
-    container_name: artifact-store
+    container_name: mlflow-artifact-store
     ports:
       - 9000:9000
       - 9001:9001
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: mlflow
+    container_name: mlflow-server
     ports:
       - 5000:5000
     environment:
