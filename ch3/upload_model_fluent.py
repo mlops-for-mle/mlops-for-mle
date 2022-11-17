@@ -3,9 +3,11 @@ import os
 import mlflow
 import pandas as pd
 import psycopg2
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 # 0. set mlflow environments
 MLFLOW_TRACKING_URI = "http://localhost:5000"
@@ -34,11 +36,11 @@ X_train, X_valid, y_train, y_valid = train_test_split(
 )
 
 # 2. model development and train
-rf = RandomForestClassifier()
-rf.fit(X_train, y_train)
+model_pipeline = Pipeline([("scaler", StandardScaler()), ("svc", SVC())])
+model_pipeline.fit(X_train, y_train)
 
-train_pred = rf.predict(X_train)
-valid_pred = rf.predict(X_valid)
+train_pred = model_pipeline.predict(X_train)
+valid_pred = model_pipeline.predict(X_valid)
 
 train_acc = accuracy_score(y_true=y_train, y_pred=train_pred)
 valid_acc = accuracy_score(y_true=y_valid, y_pred=valid_pred)
@@ -51,4 +53,4 @@ mlflow.set_experiment("fluent_case")
 
 with mlflow.start_run(run_name="rf"):
     mlflow.log_metrics({"train_acc": train_acc, "valid_acc": valid_acc})
-    mlflow.sklearn.log_model(rf, "sk_models")
+    mlflow.sklearn.log_model(model_pipeline, "sk_models")
