@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  mlflow-backend-store:
+    image: postgres:14.0
+    container_name: mlflow-backend-store
+    environment:
+      POSTGRES_USER: mlflowuser
+      POSTGRES_PASSWORD: mlflowpassword
+      POSTGRES_DB: mlflow
+      TZ: Asia/Seoul
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "mlflowuser", "-d", "mlflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mlflow-artifact-store:
+    image: minio/minio
+    container_name: mlflow-artifact-store
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniostorage
+    command: server /data/minio --console-address :9001
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  mlflow-server:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: mlflow-server
+    ports:
+      - 5000:5000
+    environment:
+      AWS_ACCESS_KEY_ID: minio
+      AWS_SECRET_ACCESS_KEY: miniostorage
+      MLFLOW_S3_ENDPOINT_URL: http://mlflow-artifact-store:9000
+    command:
+      - /bin/sh
+      - -c
+      - |
+        mc config host add mlflowminio http://mlflow-artifact-store:9000 minio miniostorage &&
+        mc mb --ignore-existing mlflowminio/mlflow
+        mlflow server \
+        --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflow \
+        --default-artifact-root s3://mlflow/ \
+        --host 0.0.0.0
+    depends_on:
+      mlflow-backend-store:
+        condition: service_healthy
+      mlflow-artifact-store:
+        condition: service_healthy
