@@ -4,5 +4,5 @@
 만약 실행하지 않았다면 아래 명령어를 통해 실행합니다.
 
 ```bash
-make run-dependency
+make dependency
 ```
