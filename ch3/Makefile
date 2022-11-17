@@ -9,7 +9,7 @@ server-clean:
 	docker-compose down -v
 	docker rmi ch3-mlflow-server
 
-run-dependency:
+dependency:
 	make -C ../ch1/ server
 
 dependency-clean:
