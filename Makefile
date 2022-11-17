@@ -7,5 +7,5 @@ init:
 	pre-commit install
 
 format:
-	black .
-	isort .
+	black . --line-length 110
+	isort . --skip-gitignore --profile black
