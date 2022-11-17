@@ -50,5 +50,5 @@ def update_user(name: str, nickname: str):
 def delete_user(name: str):
     if name not in USER_DB:
         raise NAME_NOT_FOUND
-    USER_DB.pop(name)
+    del USER_DB[name]
     return {"status": "success"}
