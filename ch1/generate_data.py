@@ -41,9 +41,12 @@ def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
 
 
 def generate_data(db_connect: connection, df: pd.DataFrame) -> None:
+    idx = 0
     while True:
-        insert_data(db_connect, df.sample(1).squeeze())
-        time.sleep(1)
+        insert_data(db_connect, df.loc[idx].squeeze())
+        idx += 1
+        idx %= len(df)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
