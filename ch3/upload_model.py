@@ -55,7 +55,7 @@ args = parser.parse_args()
 
 mlflow.set_experiment("new-exp")
 
-signiture = mlflow.models.signature.infer_signature(model_input=X_train, model_output=train_pred)
+signature = mlflow.models.signature.infer_signature(model_input=X_train, model_output=train_pred)
 input_sample = X_train.iloc[:10]
 
 with mlflow.start_run(run_name=args.run_name):
@@ -63,7 +63,7 @@ with mlflow.start_run(run_name=args.run_name):
     mlflow.sklearn.log_model(
         sk_model=model_pipeline,
         artifact_path=args.model_name,
-        signature=signiture,
+        signature=signature,
         input_example=input_sample,
     )
 
