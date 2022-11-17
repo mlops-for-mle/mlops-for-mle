@@ -25,7 +25,7 @@ db_connect = psycopg2.connect(
     port=5432,
     database="mydatabase",
 )
-df = pd.read_sql("SELECT * FROM iris_data ORDER BY id DESC LIMIT 10", db_connect)
+df = pd.read_sql("SELECT * FROM iris_data ORDER BY id DESC LIMIT 100", db_connect)
 X = df.drop(["id", "target"], axis="columns")
 y = df["target"]
 X_train, X_valid, y_train, y_valid = train_test_split(
