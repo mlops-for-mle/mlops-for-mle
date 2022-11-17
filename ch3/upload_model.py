@@ -1,5 +1,4 @@
 import os
-import sys
 from argparse import ArgumentParser
 
 import mlflow
@@ -7,6 +6,9 @@ import pandas as pd
 import psycopg2
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 # 0. set mlflow environments
 MLFLOW_TRACKING_URI = "http://localhost:5000"
@@ -35,14 +37,10 @@ X_train, X_valid, y_train, y_valid = train_test_split(
     random_state=2022,
 )
 
-# 2. load model from mlflow
-parser = ArgumentParser()
-parser.add_argument("--s3-path", dest="s3_path", type=str)
-args = parser.parse_args()
-s3_path = args.s3_path
-model_pipeline = mlflow.sklearn.load_model(s3_path)
+# 2. model development and train
+model_pipeline = Pipeline([("scaler", StandardScaler()), ("svc", SVC())])
+model_pipeline.fit(X_train, y_train)
 
-# 3. predict results
 train_pred = model_pipeline.predict(X_train)
 valid_pred = model_pipeline.predict(X_valid)
 
@@ -51,3 +49,27 @@ valid_acc = accuracy_score(y_true=y_valid, y_pred=valid_pred)
 
 print("Train Accuracy :", train_acc)
 print("Valid Accuracy :", valid_acc)
+
+# 3. save model
+parser = ArgumentParser()
+parser.add_argument("--model-name", dest="model_name", type=str, default="sk_model")
+parser.add_argument("--run-name", dest="run_name", type=str, default="scaler+svc")
+
+args = parser.parse_args()
+
+mlflow.set_experiment("new-exp")
+
+signiture = mlflow.models.signature.infer_signature(model_input=X_train, model_output=train_pred)
+input_sample = X_train.iloc[:10]
+
+with mlflow.start_run(run_name=args.run_name):
+    mlflow.log_metrics({"train_acc": train_acc, "valid_acc": valid_acc})
+    mlflow.sklearn.log_model(
+        sk_model=model_pipeline,
+        artifact_path=args.model_name,
+        signature=signiture,
+        input_example=input_sample,
+    )
+
+# 4. save data
+df.to_csv("data.csv", index=False)
