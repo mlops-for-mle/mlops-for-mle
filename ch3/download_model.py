@@ -26,7 +26,6 @@ X_train, X_valid, y_train, y_valid = train_test_split(X, y, train_size=0.8, rand
 parser = ArgumentParser()
 parser.add_argument("--model-name", dest="model_name", type=str, default="sk_model")
 parser.add_argument("--run-id", dest="run_id", type=str)
-
 args = parser.parse_args()
 
 model_pipeline = mlflow.sklearn.load_model(f"runs:/{args.run_id}/{args.model_name}")

@@ -50,7 +50,6 @@ print("Valid Accuracy :", valid_acc)
 parser = ArgumentParser()
 parser.add_argument("--model-name", dest="model_name", type=str, default="sk_model")
 parser.add_argument("--run-name", dest="run_name", type=str, default="scaler+svc")
-
 args = parser.parse_args()
 
 mlflow.set_experiment("new-exp")
