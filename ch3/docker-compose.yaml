@@ -21,8 +21,8 @@ services:
       - 9000:9000
       - 9001:9001
     environment:
-      MINIO_ROOT_USER: mystorage
-      MINIO_ROOT_PASSWORD: mystoragepw
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniostorage
     command: server /data/minio --console-address :9001
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
@@ -39,13 +39,14 @@ services:
     ports:
       - 5000:5000
     environment:
-      AWS_ACCESS_KEY_ID: "mystorage"
-      AWS_SECRET_ACCESS_KEY: "mystoragepw"
+      AWS_ACCESS_KEY_ID: minio
+      AWS_SECRET_ACCESS_KEY: miniostorage
+      MLFLOW_S3_ENDPOINT_URL: http://mlflow-artifact-store:9000
     command:
       - /bin/sh
       - -c
       - |
-        mc config host add mlflowminio http://artifact-store:9000 mystorage mystoragepw &&
+        mc config host add mlflowminio http://mlflow-artifact-store:9000 minio miniostorage &&
         mc mb --ignore-existing mlflowminio/mlflow
         mlflow server \
         --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflow \
