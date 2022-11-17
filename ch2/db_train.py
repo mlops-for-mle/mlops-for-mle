@@ -10,7 +10,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 # 1. get data
-db_connect = psycopg2.connect(host="localhost", database="mydatabase", user="myuser", password="mypassword")
+db_connect = psycopg2.connect(
+    user="myuser",
+    password="mypassword",
+    host="localhost",
+    port=5432,
+    database="mydatabase",
+)
 df = pd.read_sql("SELECT * FROM iris_data ORDER BY id DESC LIMIT 100", db_connect)
 X = df.drop(["id", "target"], axis="columns")
 y = df["target"]
