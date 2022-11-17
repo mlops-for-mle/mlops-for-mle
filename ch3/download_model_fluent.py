@@ -1,5 +1,6 @@
 import os
 import sys
+from argparse import ArgumentParser
 
 import mlflow
 import pandas as pd
@@ -34,11 +35,15 @@ X_train, X_valid, y_train, y_valid = train_test_split(
 )
 
 # 2. load model from mlflow
-rf = mlflow.sklearn.load_model(sys.argv[1])
+parser = ArgumentParser()
+parser.add_argument("--s3-path", dest="s3_path", type=str)
+args = parser.parse_args()
+s3_path = args.s3_path
+model_pipeline = mlflow.sklearn.load_model(s3_path)
 
 # 3. predict results
-train_pred = rf.predict(X_train)
-valid_pred = rf.predict(X_valid)
+train_pred = model_pipeline.predict(X_train)
+valid_pred = model_pipeline.predict(X_valid)
 
 train_acc = accuracy_score(y_true=y_train, y_pred=train_pred)
 valid_acc = accuracy_score(y_true=y_valid, y_pred=valid_pred)

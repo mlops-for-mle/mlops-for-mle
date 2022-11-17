@@ -1,4 +1,5 @@
 import os
+from argparse import ArgumentParser
 
 import joblib
 import pandas as pd
@@ -34,14 +35,19 @@ X_train, X_valid, y_train, y_valid = train_test_split(
 )
 
 # 2. load model from mlflow
+parser = ArgumentParser()
+parser.add_argument("--run-id", dest="run_id", type=str)
+args = parser.parse_args()
+run_id = args.run_id
+
 client = MlflowClient(MLFLOW_TRACKING_URI)
-client.download_artifacts(run_id=sys.argv[1], path="sk_model.pkl", dst_path="./")
+client.download_artifacts(run_id=run_id, path="sk_model.pkl", dst_path="./")
 with open("sk_model.pkl", "rb") as fp:
-    rf = joblib.load(fp)
+    model_pipeline = joblib.load(fp)
 
 # 3. predict results
-train_pred = rf.predict(X_train)
-valid_pred = rf.predict(X_valid)
+train_pred = model_pipeline.predict(X_train)
+valid_pred = model_pipeline.predict(X_valid)
 
 train_acc = accuracy_score(y_true=y_train, y_pred=train_pred)
 valid_acc = accuracy_score(y_true=y_valid, y_pred=valid_pred)
