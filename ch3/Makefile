@@ -1,6 +1,6 @@
 init:
 	pip install -U pip
-	pip install boto3 mlflow scikit-learn
+	pip install boto3==1.26.8 mlflow==1.30.0 scikit-learn
 
 server:
 	docker-compose up -d
