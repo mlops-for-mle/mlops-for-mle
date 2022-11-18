@@ -25,7 +25,7 @@ NAME_NOT_FOUND = HTTPException(status_code=400, detail="Name not found.")
 @app.post("/users", response_model=CreateOut)
 def create_user(user: CreateIn) -> CreateOut:
     USER_DB[user.name] = user.nickname
-    return CreateOut(name=user.name, nickname=user.nickname, status="success", id=len(USER_DB))
+    return CreateOut(status="success", id=len(USER_DB))
 
 
 @app.get("/users")
