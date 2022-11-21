@@ -7,7 +7,7 @@ from psycopg2.extensions import connection
 from sklearn.datasets import load_iris
 
 
-def get_data() -> pd.DataFrame:
+def get_data():
     X, y = load_iris(return_X_y=True, as_frame=True)
     df = pd.concat([X, y], axis="columns")
     rename_rule = {
@@ -20,7 +20,7 @@ def get_data() -> pd.DataFrame:
     return df
 
 
-def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
+def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_data
         (sepal_length, sepal_width, petal_length, petal_width, target)

@@ -4,7 +4,7 @@ import psycopg2
 from psycopg2.extensions import connection
 
 
-def create_table(db_connect: connection) -> None:
+def create_table(db_connect) -> None:
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_data (
         id SERIAL PRIMARY KEY,
