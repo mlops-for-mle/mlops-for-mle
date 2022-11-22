@@ -13,9 +13,9 @@ services:
     ports:
       - 22181:2181
 
-  kafka:
+  broker:
     image: confluentinc/cp-kafka:7.0.0
-    container_name: kafka
+    container_name: broker
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -28,3 +28,15 @@ services:
       - 29092:29092
     depends_on:
       - zookeeper
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.2.0
+    container_name: schema-registry
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 29092:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - broker
