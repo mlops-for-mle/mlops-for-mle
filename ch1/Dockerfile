@@ -7,7 +7,7 @@ WORKDIR /usr/app
 RUN pip install -U pip &&\
     pip install scikit-learn pandas psycopg2-binary
 
-COPY create_table.py create_table.py
 COPY generate_data.py generate_data.py
 
-CMD ["bash", "-c", "python create_table.py;python generate_data.py"]
+ENTRYPOINT ["python", "generate_data.py", "--db-host"]
+CMD ["localhost"]

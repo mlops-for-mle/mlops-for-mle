@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  db:
+  postgres-server:
     image: postgres:14.0
     container_name: postgres-server
     environment:
@@ -22,13 +22,10 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: data-generator-server
+    container_name: data-generator
     environment:
       TZ: Asia/Seoul
-<<<<<<< HEAD
-    command: ["bash", "-c", "python create_table.py --db-host db;python generate_data.py --db-host db"]
-=======
->>>>>>> b9622ef (CMD to dockerfile)
+    command: ["postgres-server"]
     depends_on:
-      db:
+      postgres-server:
         condition: service_healthy
