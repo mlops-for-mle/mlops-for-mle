@@ -1,9 +1,7 @@
-import os
+from argparse import ArgumentParser
 
 import psycopg2
 from psycopg2.extensions import connection
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
 
 
 def create_table(db_connect: connection) -> None:
@@ -23,10 +21,14 @@ def create_table(db_connect: connection) -> None:
 
 
 if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("--db-host", dest="db_host", type=str, default="localhost")
+    args = parser.parse_args()
+
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host=DB_HOST,
+        host=args.db_host,
         port=5432,
         database="mydatabase",
     )

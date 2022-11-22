@@ -25,7 +25,7 @@ services:
     container_name: data-generator-server
     environment:
       TZ: Asia/Seoul
-    command: ["bash", "-c", "DB_HOST='db' python create_table.py;DB_HOST='db' python generate_data.py"]
+    command: ["bash", "-c", "python create_table.py --db-host db;python generate_data.py --db-host db"]
     depends_on:
       db:
         condition: service_healthy
