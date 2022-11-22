@@ -25,7 +25,10 @@ services:
     container_name: data-generator-server
     environment:
       TZ: Asia/Seoul
+<<<<<<< HEAD
     command: ["bash", "-c", "python create_table.py --db-host db;python generate_data.py --db-host db"]
+=======
+>>>>>>> b9622ef (CMD to dockerfile)
     depends_on:
       db:
         condition: service_healthy
