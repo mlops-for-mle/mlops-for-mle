@@ -1,9 +1,9 @@
+# generate_data.py
 import time
 from argparse import ArgumentParser
 
 import pandas as pd
 import psycopg2
-from psycopg2.extensions import connection
 from sklearn.datasets import load_iris
 
 
@@ -38,7 +38,7 @@ def insert_data(db_connect, data):
         db_connect.commit()
 
 
-def generate_data(db_connect: connection, df: pd.DataFrame) -> None:
+def generate_data(db_connect, df):
     while True:
         insert_data(db_connect, df.sample(1).squeeze())
         time.sleep(1)

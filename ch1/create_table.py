@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 
 import psycopg2
-from psycopg2.extensions import connection
 
 
 def create_table(db_connect) -> None:
