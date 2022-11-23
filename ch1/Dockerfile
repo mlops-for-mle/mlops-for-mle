@@ -9,5 +9,5 @@ RUN pip install -U pip &&\
 
 COPY generate_data.py generate_data.py
 
-ENTRYPOINT ["python", "generate_data.py", "--db-host"]
+ENTRYPOINT ["python", "data_generator.py", "--db-host"]
 CMD ["localhost"]
