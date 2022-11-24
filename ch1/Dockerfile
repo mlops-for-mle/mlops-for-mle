@@ -10,4 +10,5 @@ RUN pip install -U pip &&\
 COPY generate_data.py generate_data.py
 
 ENTRYPOINT ["python", "data_generator.py", "--db-host"]
+# Change CMD to solve host finding error
 CMD ["localhost"]
