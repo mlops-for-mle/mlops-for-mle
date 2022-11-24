@@ -1,10 +1,8 @@
-from argparse import ArgumentParser
-
+# create_table.py
 import psycopg2
-from psycopg2.extensions import connection
 
 
-def create_table(db_connect: connection) -> None:
+def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_data (
         id SERIAL PRIMARY KEY,
@@ -21,14 +19,10 @@ def create_table(db_connect: connection) -> None:
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("--db-host", dest="db_host", type=str, default="localhost")
-    args = parser.parse_args()
-
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host=args.db_host,
+        host="localhost",
         port=5432,
         database="mydatabase",
     )

@@ -1,4 +1,7 @@
-# insert_data.py
+# data_generator.py
+import time
+from argparse import ArgumentParser
+
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris
@@ -17,6 +20,22 @@ def get_data():
     return df
 
 
+def create_table(db_connect):
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS iris_data (
+        id SERIAL PRIMARY KEY,
+        sepal_length float8,
+        sepal_width float8,
+        petal_length float8,
+        petal_width float8,
+        target int
+    );"""
+    print(create_table_query)
+    with db_connect.cursor() as cur:
+        cur.execute(create_table_query)
+        db_connect.commit()
+
+
 def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_data
@@ -27,20 +46,32 @@ def insert_data(db_connect, data):
             {data.petal_length},
             {data.petal_width},
             {data.target}
-        );"""
+        );
+    """
     print(insert_row_query)
     with db_connect.cursor() as cur:
         cur.execute(insert_row_query)
         db_connect.commit()
 
 
+def generate_data(db_connect, df):
+    while True:
+        insert_data(db_connect, df.sample(1).squeeze())
+        time.sleep(5)
+
+
 if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("--db-host", dest="db_host", type=str, default="localhost")
+    args = parser.parse_args()
+
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host="localhost",
+        host=args.db_host,
         port=5432,
         database="mydatabase",
     )
+    create_table(db_connect)
     df = get_data()
-    insert_data(db_connect, df.sample(1).squeeze())
+    generate_data(db_connect, df)
