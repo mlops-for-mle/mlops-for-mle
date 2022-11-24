@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: mlflowpassword
       POSTGRES_DB: mlflow
       TZ: Asia/Seoul
+    ports:
+      - 5433:5432
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-U", "mlflowuser", "-d", "mlflow"]
       interval: 10s
