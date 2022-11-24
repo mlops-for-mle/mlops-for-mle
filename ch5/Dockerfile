@@ -7,4 +7,4 @@ RUN pip install -U pip \
 
 COPY crud_pydantic.py crud_pydantic.py
 
-ENTRYPOINT ["uvicorn", "crud_pydantic:app", "--host", "0.0.0.0", "--reload"]
+CMD ["uvicorn", "crud_pydantic:app", "--host", "0.0.0.0", "--reload"]
