@@ -8,6 +8,8 @@ server:
 server-clean:
 	docker-compose down -v
 	docker rmi ch3-mlflow-server
+	docker rmi minio/minio
+	docker rmi postgres:14.0
 
 dependency:
 	make -C ../ch1/ server
