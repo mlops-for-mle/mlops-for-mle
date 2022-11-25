@@ -2,8 +2,8 @@ init:
 	pip install -U pip
 	pip install fastapi[all] pandas psycopg2-binary scikit-learn
 
-main:
-	uvicorn main:app --reload
+app:
+	uvicorn app:app --reload
 
 dependency:
 	make -C ../ch1/ server

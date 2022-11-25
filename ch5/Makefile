@@ -20,3 +20,4 @@ server:
 
 server-clean:
 	docker rm -f api-server
+	docker rmi ch-5-api-server
