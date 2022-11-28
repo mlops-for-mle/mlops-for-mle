@@ -19,7 +19,6 @@ parser.add_argument("--run-id", dest="run_id", type=str)
 args = parser.parse_args()
 
 model_pipeline = mlflow.pyfunc.load_model(f"runs:/{args.run_id}/{args.model_name}")
-print(model_pipeline)
 
 # 2. get data
 df = pd.read_csv("data.csv")
