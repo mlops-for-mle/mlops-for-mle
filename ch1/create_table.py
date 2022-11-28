@@ -1,12 +1,8 @@
-import os
-
+# create_table.py
 import psycopg2
-from psycopg2.extensions import connection
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
 
 
-def create_table(db_connect: connection) -> None:
+def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_data (
         id SERIAL PRIMARY KEY,
@@ -26,7 +22,7 @@ if __name__ == "__main__":
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host=DB_HOST,
+        host="localhost",
         port=5432,
         database="mydatabase",
     )

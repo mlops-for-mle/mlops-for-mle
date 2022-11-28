@@ -1,15 +1,12 @@
-import os
+# insert_data_loop.py
 import time
 
 import pandas as pd
 import psycopg2
-from psycopg2.extensions import connection
 from sklearn.datasets import load_iris
 
-DB_HOST = os.getenv("DB_HOST", "localhost")
 
-
-def get_data() -> pd.DataFrame:
+def get_data():
     X, y = load_iris(return_X_y=True, as_frame=True)
     df = pd.concat([X, y], axis="columns")
     rename_rule = {
@@ -22,7 +19,7 @@ def get_data() -> pd.DataFrame:
     return df
 
 
-def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
+def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_data
         (sepal_length, sepal_width, petal_length, petal_width, target)
@@ -40,17 +37,17 @@ def insert_data(db_connect: connection, data: pd.DataFrame) -> None:
         db_connect.commit()
 
 
-def generate_data(db_connect: connection, df: pd.DataFrame) -> None:
+def generate_data(db_connect, df):
     while True:
         insert_data(db_connect, df.sample(1).squeeze())
-        time.sleep(1)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
         user="myuser",
         password="mypassword",
-        host=DB_HOST,
+        host="localhost",
         port=5432,
         database="mydatabase",
     )

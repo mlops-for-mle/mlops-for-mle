@@ -13,3 +13,10 @@ crud-query:
 
 crud-pydantic:
 	uvicorn crud_pydantic:app --reload
+
+server:
+	docker build -f Dockerfile -t ch-5-api-server .
+	docker run --name api-server -p 8000:8000 -d ch-5-api-server
+
+server-clean:
+	docker rm -f api-server
