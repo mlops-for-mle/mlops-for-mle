@@ -7,6 +7,6 @@ RUN pip install -U pip \
 
 COPY db_pipeline.joblib db_pipeline.joblib
 COPY schemas.py schemas.py
-COPY model_in_svc/ model_in_svc/
+COPY image_with_model/ image_with_model/
 
-CMD ["uvicorn", "model_in_svc.app:app", "--host", "0.0.0.0", "--reload"]
+CMD ["uvicorn", "image_with_model.app:app", "--host", "0.0.0.0", "--reload"]
