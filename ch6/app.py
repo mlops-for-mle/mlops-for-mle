@@ -26,7 +26,6 @@ def get_model():
 
 MODEL = get_model()
 
-
 # Create a FastAPI instance
 app = FastAPI()
 
