@@ -45,7 +45,7 @@ services:
   connect:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./connect.Dockerfile
     container_name: connect
     depends_on:
       - broker
@@ -81,7 +81,6 @@ services:
       POSTGRES_USER: sourceuser
       POSTGRES_PASSWORD: sourcepassword
       POSTGRES_DB: sourcedatabase
-      TZ: Asia/Seoul
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-U", "sourceuser", "-d", "sourcedatabase"]
       interval: 10s
@@ -97,9 +96,12 @@ services:
       POSTGRES_USER: sinkuser
       POSTGRES_PASSWORD: sinkpassword
       POSTGRES_DB: sinkdatabase
-      TZ: Asia/Seoul
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "sinkuser", "-d", "sinkdatabase"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+
+  data-generator:
+    build:
+      context: .
+      dockerfile: ./data_generator.Dockerfile
+    container_name: data-generator
+    depends_on:
+      source-db:
+        condition: service_healthy
