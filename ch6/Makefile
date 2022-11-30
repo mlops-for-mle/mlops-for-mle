@@ -5,17 +5,13 @@ init:
 app:
 	uvicorn app:app --reload
 
-server-with-model:
-	docker build -f image_with_model/Dockerfile -t ch6-api-with-model .
+server:
+	docker build -f Dockerfile -t ch6-api-with-model .
 	docker run --name api-with-model -p 8000:8000 -d ch6-api-with-model
 
-server-without-model:
-	docker build -f image_without_model/Dockerfile -t ch6-api-without-model .
-	docker run --name api-without-model --network ch3_default -p 8000:8000 -d ch6-api-without-model
-
 server-clean:
-	docker rm -f api-with-model api-without-model
-	docker rmi -f ch6-api-with-model ch6-api-without-model
+	docker rm -f api-with-model
+	docker rmi ch6-api-with-model
 
 dependency:
 	make -C ../ch1/ server
