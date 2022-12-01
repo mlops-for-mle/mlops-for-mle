@@ -6,3 +6,8 @@
 ```bash
 $ make dependency
 ```
+
+실습이 종료된 후 관련된 dependency를 다음과 같이 제거할 수 있습니다.
+```bash
+$ make dependency-clean
+```
