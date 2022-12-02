@@ -2,11 +2,11 @@
     "name": "postgres-sink-connector",
     "config": {
         "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-        "connection.url": "jdbc:postgresql://localhost:5433/sinkdatabase",
+        "connection.url": "jdbc:postgresql://sink-postgres-server:5432/sinkdatabase",
         "connection.user": "sinkuser",
         "connection.password": "sinkpassword",
-        "table.name.format": "${topic}",
-        "topics": "postgres-sink-iris-data",
+        "table.name.format": "iris_data",
+        "topics": "postgres-source-iris_data",
         "auto.create": false,
         "auto.evolve": false,
         "tasks.max": 2
