@@ -3,4 +3,4 @@ server:
 
 server-clean:
 	docker-compose down -v
-	docker rmi ch7-connect ch7-data-generator
+	docker rmi ch7-source-data-generator ch7-sink-table-creator ch7-connect

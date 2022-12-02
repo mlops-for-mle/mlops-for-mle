@@ -44,8 +44,8 @@ services:
 
   connect:
     build:
-      context: .
-      dockerfile: ./connect.Dockerfile
+      context: ./docker/connect
+      dockerfile: Dockerfile
     container_name: connect
     depends_on:
       - broker
@@ -72,9 +72,9 @@ services:
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
 
-  source-db:
+  source-postgres-server:
     image: postgres:14.0
-    container_name: source-db
+    container_name: source-postgres-server
     ports:
       - 5432:5432
     environment:
@@ -87,21 +87,35 @@ services:
       timeout: 5s
       retries: 5
 
-  sink-db:
+  source-data-generator:
+    build:
+      context: ./docker/source
+      dockerfile: Dockerfile
+    container_name: source-data-generator
+    depends_on:
+      source-postgres-server:
+        condition: service_healthy
+
+  sink-postgres-server:
     image: postgres:14.0
-    container_name: sink-db
+    container_name: sink-postgres-server
     ports:
-      - 5433:5433
+      - 5433:5432
     environment:
       POSTGRES_USER: sinkuser
       POSTGRES_PASSWORD: sinkpassword
       POSTGRES_DB: sinkdatabase
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "sinkuser", "-d", "sinkdatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  data-generator:
+  sink-table-creator:
     build:
-      context: .
-      dockerfile: ./data_generator.Dockerfile
-    container_name: data-generator
+      context: ./docker/sink
+      dockerfile: Dockerfile
+    container_name: sink-table-creator
     depends_on:
-      source-db:
+      sink-postgres-server:
         condition: service_healthy

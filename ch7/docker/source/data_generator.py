@@ -63,7 +63,7 @@ if __name__ == "__main__":
     db_connect = psycopg2.connect(
         user="sourceuser",
         password="sourcepassword",
-        host="source-db",
+        host="source-postgres-server",
         port=5432,
         database="sourcedatabase",
     )
