@@ -131,6 +131,7 @@ dmypy.json
 
 # model
 *.joblib
+sk_model/
 
 # data
 *.csv
