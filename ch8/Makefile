@@ -3,4 +3,20 @@ server:
 
 server-clean:
 	docker-compose down -v
-	docker rmi ch7-source-data-generator ch7-sink-table-creator ch7-connect
+	docker rmi ch8-source-data-generator ch8-sink-data-subscriber ch8-connect ch8-api-with-model
+
+connector:
+	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
+
+source-db:
+	PGPASSWORD=sourcepassword psql -h localhost -p 5432 -U sourceuser -d sourcedatabase
+
+sink-db:
+	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
+
+dependency:
+	make -C ../ch3/ server
+	python ../ch3/save_model_to_registry.py
+
+dependency-clean:
+	make -C ../ch3/ server-clean

@@ -3,8 +3,8 @@ FROM amd64/python:3.9-slim
 WORKDIR /usr/app
 
 RUN pip install -U pip &&\
-    pip install psycopg2-binary
+    pip install psycopg2-binary kafka-python requests
 
-COPY create_table.py create_table.py
+COPY data_subscriber.py data_subscriber.py
 
-ENTRYPOINT ["python", "create_table.py"]
+ENTRYPOINT ["python", "data_subscriber.py"]

@@ -99,6 +99,8 @@ services:
   sink-postgres-server:
     image: postgres:14.0
     container_name: sink-postgres-server
+    depends_on:
+      - source-data-generator
     ports:
       - 5433:5432
     environment:
@@ -111,11 +113,19 @@ services:
       timeout: 5s
       retries: 5
 
-  sink-table-creator:
+  sink-data-subscriber:
     build:
       context: ./docker/sink
       dockerfile: Dockerfile
-    container_name: sink-table-creator
+    container_name: sink-data-subscriber
     depends_on:
       sink-postgres-server:
         condition: service_healthy
+
+  api-with-model:
+    build:
+      context: ./docker/api
+      dockerfile: Dockerfile
+    container_name: api-with-model
+    ports:
+      - 8000:8000
