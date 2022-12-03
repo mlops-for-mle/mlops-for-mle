@@ -38,7 +38,7 @@ services:
       dockerfile: ./Dockerfile
     container_name: mlflow-server
     ports:
-      - 5000:5000
+      - 5001:5000
     environment:
       AWS_ACCESS_KEY_ID: minio
       AWS_SECRET_ACCESS_KEY: miniostorage
