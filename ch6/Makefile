@@ -17,7 +17,7 @@ dependency:
 	make -C ../ch1/ server
 	sleep 100
 	make -C ../ch3/ server
-	python ../ch3/upload_model.py
+	python ../ch3/save_model_to_registry.py
 
 dependency-clean:
 	make -C ../ch1/ server-clean
