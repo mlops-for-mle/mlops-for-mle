@@ -5,7 +5,7 @@ server-clean:
 	docker-compose down -v
 	docker rmi ch8-source-data-generator ch8-sink-data-subscriber ch8-connect ch8-api-with-model
 
-connector:
+source-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
 
 source-db:
