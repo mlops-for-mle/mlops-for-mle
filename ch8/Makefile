@@ -8,10 +8,10 @@ server-clean:
 source-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
 
-source-db:
+source-db-connection:
 	PGPASSWORD=sourcepassword psql -h localhost -p 5432 -U sourceuser -d sourcedatabase
 
-sink-db:
+sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
 
 dependency:
