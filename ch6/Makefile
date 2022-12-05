@@ -1,6 +1,6 @@
 init:
 	pip install -U pip
-	pip install fastapi[all] pandas psycopg2-binary scikit-learn
+	pip install fastapi[all] pandas psycopg2-binary scikit-learn mlflow==1.30.0
 
 app:
 	uvicorn app:app --reload

@@ -1,3 +1,7 @@
+init:
+	pip install -U pip
+	pip install mlflow==1.30.0
+
 server:
 	docker-compose up -d
 
