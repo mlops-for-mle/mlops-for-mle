@@ -3,10 +3,10 @@ init:
 	pip install mlflow==1.30.0
 
 server:
-	docker-compose up -d
+	docker compose up -d
 
 server-clean:
-	docker-compose down -v
+	docker compose down -v
 	docker rmi ch8-connect ch8-source-data-generator ch8-sink-data-subscriber ch8-api-with-model
 
 source-connector:

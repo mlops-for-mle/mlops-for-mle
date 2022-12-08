@@ -1,8 +1,8 @@
 server:
-	docker-compose up -d
+	docker compose up -d
 
 server-clean:
-	docker-compose down -v
+	docker compose down -v
 	docker rmi ch7-connect ch7-source-data-generator ch7-sink-table-creator
 
 source-connector:
