@@ -83,6 +83,7 @@ services:
       retries: 5
 
   source-data-generator:
+    platform: linux/amd64
     build:
       context: ./docker/source
       dockerfile: Dockerfile
@@ -109,6 +110,7 @@ services:
       retries: 5
 
   sink-data-subscriber:
+    platform: linux/amd64
     build:
       context: ./docker/sink
       dockerfile: Dockerfile
@@ -118,6 +120,7 @@ services:
         condition: service_healthy
 
   api-with-model:
+    platform: linux/amd64
     build:
       context: ./docker/api
       dockerfile: Dockerfile
