@@ -18,7 +18,7 @@ source-connector:
 sink-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @sink_connector.json
 
-server: dependency
+server:
 	make kafka-server
 	make sink-server
 	sleep 30

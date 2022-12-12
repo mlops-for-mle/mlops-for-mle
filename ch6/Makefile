@@ -10,8 +10,8 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 6 resources------------"
-	docker rm -f api-with-model || true
-	docker rmi ch6-api-with-model || true
+	docker compose down -v
+	docker rmi ch6_api-with-model || true
 
 dependency:
 	make -C ../ch1/ server

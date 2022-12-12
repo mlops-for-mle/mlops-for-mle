@@ -2,7 +2,7 @@ init:
 	pip install -U pip
 	pip install boto3==1.26.8 mlflow==1.30.0 scikit-learn pandas
 
-server: dependency
+server:
 	docker compose up -d
 
 server-clean:
