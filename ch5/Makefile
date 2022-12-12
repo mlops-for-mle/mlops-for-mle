@@ -1,6 +1,6 @@
 init:
 	pip install -U pip
-	pip install fastapi[all]
+	pip install "fastapi[all]"
 
 main:
 	uvicorn main:app --reload
