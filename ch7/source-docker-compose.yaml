@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  source-postgres-server:
+    image: postgres:14.0
+    container_name: source-postgres-server
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: sourceuser
+      POSTGRES_PASSWORD: sourcepassword
+      POSTGRES_DB: sourcedatabase
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "sourceuser", "-d", "sourcedatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  source-data-generator:
+    platform: linux/amd64
+    build:
+      context: ./docker/source
+      dockerfile: Dockerfile
+    container_name: source-data-generator
+    depends_on:
+      source-postgres-server:
+        condition: service_healthy

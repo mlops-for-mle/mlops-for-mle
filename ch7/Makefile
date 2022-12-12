@@ -1,8 +1,16 @@
-server:
-	docker compose up -d
+kafka-server:
+	docker compose -f kafka-docker-compose.yaml up -d
+
+source-server:
+	docker compose -f source-docker-compose.yaml up -d
+
+sink-server:
+	docker compose -f sink-docker-compose.yaml up -d
 
 server-clean:
-	docker compose down -v
+	docker compose -f kafka-docker-compose.yaml down -v
+	docker compose -f source-docker-compose.yaml down -v
+	docker compose -f sink-docker-compose.yaml down -v
 	docker rmi ch7-connect ch7-source-data-generator ch7-sink-table-creator
 
 source-connector:
