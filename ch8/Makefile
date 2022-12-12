@@ -19,8 +19,10 @@ sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
 
 dependency:
+	make -C ../ch1/ server
 	make -C ../ch3/ server
 	python ../ch3/save_model_to_registry.py
 
 dependency-clean:
 	make -C ../ch3/ server-clean
+	make -C ../ch1/ server-clean

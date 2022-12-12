@@ -33,8 +33,8 @@ source-db-connection:
 sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
 
-dependecy:
+dependency:
 	make -C ../ch1/ server
 
-dependecy-clean:
+dependency-clean:
 	make -C ../ch1/ server-clean
