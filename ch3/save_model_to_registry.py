@@ -46,7 +46,6 @@ print("Valid Accuracy :", valid_acc)
 # 3. save model
 parser = ArgumentParser()
 parser.add_argument("--model-name", dest="model_name", type=str, default="sk_model")
-parser.add_argument("--run-name", dest="run_name", type=str, default="scaler+svc")
 args = parser.parse_args()
 
 mlflow.set_experiment("new-exp")
@@ -54,7 +53,7 @@ mlflow.set_experiment("new-exp")
 signature = mlflow.models.signature.infer_signature(model_input=X_train, model_output=train_pred)
 input_sample = X_train.iloc[:10]
 
-with mlflow.start_run(run_name=args.run_name):
+with mlflow.start_run():
     mlflow.log_metrics({"train_acc": train_acc, "valid_acc": valid_acc})
     mlflow.sklearn.log_model(
         sk_model=model_pipeline,
