@@ -25,3 +25,8 @@ services:
     depends_on:
       sink-postgres-server:
         condition: service_healthy
+
+networks:
+  default:
+    name: ch1_default
+    external: true
