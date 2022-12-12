@@ -1,23 +1,24 @@
 server:
-	docker compose -f kafka-docker-compose.yaml up -d
-	docker compose -f source-docker-compose.yaml up -d
-	docker compose -f sink-docker-compose.yaml up -d
+	make kafka-server
+	make sink-server
 	make source-connector
 	make sink-connector
 
 kafka-server:
 	docker compose -f kafka-docker-compose.yaml up -d
 
-source-server:
-	docker compose -f source-docker-compose.yaml up -d
-
 sink-server:
 	docker compose -f sink-docker-compose.yaml up -d
 
-server-clean:
+kafka-clean:
 	docker compose -f kafka-docker-compose.yaml down -v
-	docker compose -f source-docker-compose.yaml down -v
+
+sink-clean:
 	docker compose -f sink-docker-compose.yaml down -v
+
+server-clean:
+	make kafka-clean
+	make sink-clean
 	docker rmi ch7-connect ch7-source-data-generator ch7-sink-table-creator
 
 source-connector:
@@ -31,3 +32,9 @@ source-db-connection:
 
 sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
+
+dependecy:
+	make -C ../ch1/ server
+
+dependecy-clean:
+	make -C ../ch1/ server-clean

@@ -2,9 +2,9 @@
     "name": "postgres-source-connector",
     "config": {
         "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-        "connection.url": "jdbc:postgresql://source-postgres-server:5432/sourcedatabase",
-        "connection.user": "sourceuser",
-        "connection.password": "sourcepassword",
+        "connection.url": "jdbc:postgresql://postgres-server:5432/mydatabase",
+        "connection.user": "myuser",
+        "connection.password": "mypassword",
         "table.whitelist": "iris_data",
         "topic.prefix": "postgres-source-",
         "topic.creation.default.partitions": 1,
