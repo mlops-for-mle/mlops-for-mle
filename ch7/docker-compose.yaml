@@ -67,7 +67,7 @@ services:
     image: postgres:14.0
     container_name: source-postgres-server
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       POSTGRES_USER: sourceuser
       POSTGRES_PASSWORD: sourcepassword
@@ -92,7 +92,7 @@ services:
     image: postgres:14.0
     container_name: sink-postgres-server
     ports:
-      - 5433:5432
+      - 5434:5432
     environment:
       POSTGRES_USER: sinkuser
       POSTGRES_PASSWORD: sinkpassword
