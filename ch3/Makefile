@@ -2,7 +2,7 @@ init:
 	pip install -U pip
 	pip install boto3==1.26.8 mlflow==1.30.0 scikit-learn pandas
 
-server:
+server: dependency
 	docker compose up -d
 
 server-clean:
@@ -11,7 +11,6 @@ server-clean:
 	docker rmi ch3-mlflow-server || true
 	docker rmi minio/minio || true
 	docker rmi postgres:14.0 || true
-	make dependency-clean
 
 dependency:
 	make -C ../ch1/ server

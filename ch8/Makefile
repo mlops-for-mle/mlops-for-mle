@@ -8,14 +8,17 @@ server-clean:
 	docker rmi ch8-source-data-generator || true
 	docker rmi ch8-sink-data-subscriber || true
 	docker rmi ch8-api-with-model || true
-	make dependency-clean
 
 sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
 
 dependency:
+	make -C ../ch1/ server
+	make -C ../ch6/ server
 	make -C ../ch7/ server
 
 dependency-clean:
-	make -C ../ch6/ server-clean
 	make -C ../ch7/ server-clean
+	make -C ../ch6/ server-clean
+	make -C ../ch3/ server-clean
+	make -C ../ch1/ server-clean

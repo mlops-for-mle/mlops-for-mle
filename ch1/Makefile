@@ -7,5 +7,5 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 1 resources------------"
-	docker compose down --force -v || true
+	docker compose down -v || true
 	docker rmi ch1-data-generator || true

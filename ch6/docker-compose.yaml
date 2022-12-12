@@ -1,12 +1,14 @@
 version: "3"
 
 services:
-  sink-data-subscriber:
+  api-with-model:
     platform: linux/amd64
     build:
-      context: ./docker/sink
+      context: ./
       dockerfile: Dockerfile
-    container_name: sink-data-subscriber
+    ports:
+      - 8000:8000
+    container_name: api-with-model
 
 networks:
   default:

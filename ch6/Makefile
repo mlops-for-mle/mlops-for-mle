@@ -5,17 +5,13 @@ init:
 app:
 	uvicorn app:app --reload
 
-build:
-	docker build -f Dockerfile -t ch6-api-with-model .
-
-server: build
-	docker run --network "ch1_default" --name api-with-model -p 8000:8000 -d ch6-api-with-model
+server:
+	docker compose up -d --build
 
 server-clean:
 	echo "------------Cleaning Chapter 6 resources------------"
 	docker rm -f api-with-model || true
 	docker rmi ch6-api-with-model || true
-	make dependency-clean
 
 dependency:
 	make -C ../ch1/ server
