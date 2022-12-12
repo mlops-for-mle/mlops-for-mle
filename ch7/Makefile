@@ -1,3 +1,10 @@
+server:
+	docker compose -f kafka-docker-compose.yaml up -d
+	docker compose -f source-docker-compose.yaml up -d
+	docker compose -f sink-docker-compose.yaml up -d
+	make source-connector
+	make sink-connector
+
 kafka-server:
 	docker compose -f kafka-docker-compose.yaml up -d
 
