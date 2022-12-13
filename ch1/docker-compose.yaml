@@ -30,3 +30,7 @@ services:
     depends_on:
       postgres-server:
         condition: service_healthy
+
+networks:
+  default:
+    name: mlops-network

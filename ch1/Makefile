@@ -8,4 +8,4 @@ server:
 server-clean:
 	echo "------------Cleaning Chapter 1 resources------------"
 	docker compose down -v
-	docker rmi -f ch1-data-generator
+	docker rmi -f ch1-data-generator postgres:14.0

@@ -65,5 +65,5 @@ services:
 
 networks:
   default:
-    name: ch1_default
+    name: mlops-network
     external: true

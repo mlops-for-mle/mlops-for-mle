@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  sink-postgres-server:
+  postgres-server:
     image: postgres:14.0
     container_name: sink-postgres-server
     ports:
@@ -16,17 +16,17 @@ services:
       timeout: 5s
       retries: 5
 
-  sink-table-creator:
+  table-creator:
     platform: linux/amd64
     build:
       context: ./docker/sink
       dockerfile: Dockerfile
     container_name: sink-table-creator
     depends_on:
-      sink-postgres-server:
+      postgres-server:
         condition: service_healthy
 
 networks:
   default:
-    name: ch1_default
+    name: mlops-network
     external: true

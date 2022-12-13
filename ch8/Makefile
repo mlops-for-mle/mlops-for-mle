@@ -17,5 +17,4 @@ dependency:
 dependency-clean:
 	make -C ../ch7/ server-clean
 	make -C ../ch6/ server-clean
-	make -C ../ch3/ server-clean
 	make -C ../ch1/ server-clean

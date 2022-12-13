@@ -1,16 +1,20 @@
 kafka-server:
-	docker compose -p kafka -f kafka-docker-compose.yaml up -d
+	docker compose -p ch7-kafka -f kafka-docker-compose.yaml up -d
 
 sink-server:
-	docker compose -p sink -f sink-docker-compose.yaml up -d
+	docker compose -p ch7-sink -f sink-docker-compose.yaml up -d
 
 kafka-clean:
-	docker compose -p kafka down -v
-	docker rmi -f kafka_connect
+	docker compose -p ch7-kafka down -v
+	docker rmi -f \
+		ch7-kafka-connect \
+		confluentinc/cp-kafka:7.3.0 \
+		confluentinc/cp-schema-registry:7.3.0 \
+		confluentinc/cp-zookeeper:7.3.0
 
 sink-clean:
-	docker compose -p sink down -v
-	docker rmi -f sink_sink-table-creator
+	docker compose -p ch7-sink down -v
+	docker rmi -f ch7-sink-table-creator
 
 source-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
