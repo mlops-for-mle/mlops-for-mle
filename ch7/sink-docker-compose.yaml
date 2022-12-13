@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  postgres-server:
+    image: postgres:14.0
+    container_name: sink-postgres-server
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: sinkuser
+      POSTGRES_PASSWORD: sinkpassword
+      POSTGRES_DB: sinkdatabase
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "sinkuser", "-d", "sinkdatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  table-creator:
+    platform: linux/amd64
+    build:
+      context: ./docker/sink
+      dockerfile: Dockerfile
+    container_name: sink-table-creator
+    depends_on:
+      postgres-server:
+        condition: service_healthy
+
+networks:
+  default:
+    name: mlops-network
+    external: true

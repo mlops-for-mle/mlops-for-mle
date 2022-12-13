@@ -11,3 +11,11 @@ $ make dependency
 ```bash
 $ make dependency-clean
 ```
+
+실행 후 [http://localhost:5001/](http://localhost:5001/) 에 접속해 run id 를 확인합니다.
+
+확인한 run id를 이용해 아래 스크립트를 실행합니다.
+
+```bash
+$ python download_model --run-id `<RUN-ID>`
+```

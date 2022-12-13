@@ -6,8 +6,9 @@ server:
 	docker compose up -d
 
 server-clean:
+	echo "------------Cleaning Chapter 3 resources------------"
 	docker compose down -v
-	docker rmi ch3-mlflow-server minio/minio postgres:14.0
+	docker rmi -f ch3-mlflow-server minio/minio
 
 dependency:
 	make -C ../ch1/ server
