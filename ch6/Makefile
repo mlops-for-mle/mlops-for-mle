@@ -6,16 +6,16 @@ app:
 	uvicorn app:app --reload
 
 server:
-	docker compose -p api-serving up -d --build
+	docker compose up -d --build
 
 server-clean:
 	echo "------------Cleaning Chapter 6 resources------------"
 	docker compose down -v
-	docker rmi -f api-serving-api-with-model
+	docker rmi -f ch6-api-with-model
 
 dependency:
 	make -C ../ch1/ server
-	sleep 100
+	sleep 10
 	make -C ../ch3/ server
 	python ../ch3/save_model_to_registry.py
 

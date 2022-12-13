@@ -10,4 +10,5 @@ services:
 
 networks:
   default:
-    name: mlo-mle-network
+    name: mlops-network
+    external: true
