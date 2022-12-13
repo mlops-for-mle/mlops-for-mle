@@ -15,10 +15,10 @@ crud-pydantic:
 	uvicorn crud_pydantic:app --reload
 
 server:
-	docker build -f Dockerfile -t ch5-api-server .
-	docker run --name api-server -p 8000:8000 -d ch5-api-server
+	docker build -f Dockerfile -t fast-api-server .
+	docker run --name api-server -p 8000:8000 -d fast-api-server
 
 server-clean:
 	echo "------------Cleaning Chapter 5 resources------------"
-	docker rm -f api-server || true
-	docker rmi ch5-api-server || true
+	docker rm -f api-server
+	docker rmi fast-api-server

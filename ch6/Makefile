@@ -6,12 +6,12 @@ app:
 	uvicorn app:app --reload
 
 server:
-	docker compose up -d --build
+	docker compose -p api-serving up -d --build
 
 server-clean:
 	echo "------------Cleaning Chapter 6 resources------------"
-	docker compose down -v
-	docker rmi ch6_api-with-model || true
+	docker compose -p api-serving down -v
+	docker image prune -a -f
 
 dependency:
 	make -C ../ch1/ server

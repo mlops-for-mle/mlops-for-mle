@@ -3,9 +3,9 @@ init:
 	pip install pandas psycopg2-binary scikit-learn
 
 server:
-	docker compose up -d
+	docker compose -p db up -d
 
 server-clean:
 	echo "------------Cleaning Chapter 1 resources------------"
-	docker compose down -v || true
-	docker rmi ch1-data-generator || true
+	docker compose -p db down -v
+	docker image prune -a -f
