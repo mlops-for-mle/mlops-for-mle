@@ -7,10 +7,8 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 3 resources------------"
-	docker compose down -v || true
-	docker rmi ch3-mlflow-server || true
-	docker rmi minio/minio || true
-	docker rmi postgres:14.0 || true
+	docker compose down -v
+	docker rmi -f ch3-mlflow-server minio/minio postgres:14.0
 
 dependency:
 	make -C ../ch1/ server

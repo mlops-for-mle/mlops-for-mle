@@ -3,8 +3,8 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 8 resources------------"
-	docker compose down -v || true
-	docker rmi ch8-sink-data-subscriber || true
+	docker compose down -v
+	docker rmi -f ch8-sink-data-subscriber
 
 sink-db-connection:
 	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase

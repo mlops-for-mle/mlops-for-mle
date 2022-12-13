@@ -5,12 +5,12 @@ sink-server:
 	docker compose -p sink -f sink-docker-compose.yaml up -d
 
 kafka-clean:
-	docker compose -p kafka down -v || true
-	docker rmi kafka_connect || true
+	docker compose -p kafka down -v
+	docker rmi -f kafka_connect
 
 sink-clean:
-	docker compose -p sink down -v || true
-	docker rmi sink_sink-table-creator || true
+	docker compose -p sink down -v
+	docker rmi -f sink_sink-table-creator
 
 source-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
