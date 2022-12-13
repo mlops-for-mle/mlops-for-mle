@@ -31,13 +31,7 @@ server-clean:
 	make sink-clean
 
 source-db-connection:
-	PGPASSWORD=mypassword psql -h localhost -p 5432 -U myuser -d mydatabase
+	PGPASSWORD=sourcepassword psql -h localhost -p 5433 -U sourceuser -d sourcedatabase
 
 sink-db-connection:
-	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
-
-dependency:
-	make -C ../ch1/ server
-
-dependency-clean:
-	make -C ../ch1/ server-clean
+	PGPASSWORD=sinkpassword psql -h localhost -p 5434 -U sinkuser -d sinkdatabase
