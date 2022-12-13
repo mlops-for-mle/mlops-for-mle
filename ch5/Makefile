@@ -21,4 +21,4 @@ server:
 server-clean:
 	echo "------------Cleaning Chapter 5 resources------------"
 	docker rm -f api-server
-	docker rmi ch5-api-server
+	docker rmi -f ch5-api-server
