@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
     container_name: sink-table-creator
     depends_on:
-      sink-postgres-server:
+      postgres-server:
         condition: service_healthy
 
 networks:
