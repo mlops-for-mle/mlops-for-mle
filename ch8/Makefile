@@ -2,12 +2,11 @@ server:
 	docker compose up -d
 
 server-clean:
-	echo "------------Cleaning Chapter 8 resources------------"
 	docker compose down -v
-	docker rmi -f ch8-sink-data-subscriber
+	docker rmi -f ch8-data-subscriber
 
-sink-db-connection:
-	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
+target-db-connection:
+	PGPASSWORD=targetpassword psql -h localhost -p 5433 -U targetuser -d targetdatabase
 
 dependency:
 	make -C ../ch1/ server

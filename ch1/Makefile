@@ -6,6 +6,8 @@ server:
 	docker compose up -d
 
 server-clean:
-	echo "------------Cleaning Chapter 1 resources------------"
 	docker compose down -v
 	docker rmi -f ch1-data-generator postgres:14.0
+
+db-connection:
+	PGPASSWORD=mypassword psql -h localhost -p 5432 -U myuser -d mydatabase

@@ -53,11 +53,11 @@ def subscribe_data(db_connect, consumer):
 
 if __name__ == "__main__":
     db_connect = psycopg2.connect(
-        user="sinkuser",
-        password="sinkpassword",
-        host="sink-postgres-server",
+        user="targetuser",
+        password="targetpassword",
+        host="target-postgres-server",
         port=5432,
-        database="sinkdatabase",
+        database="targetdatabase",
     )
     create_table(db_connect)
 

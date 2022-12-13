@@ -19,6 +19,5 @@ server:
 	docker run --name api-server -p 8000:8000 -d ch5-api-server
 
 server-clean:
-	echo "------------Cleaning Chapter 5 resources------------"
 	docker rm -f api-server
 	docker rmi -f ch5-api-server

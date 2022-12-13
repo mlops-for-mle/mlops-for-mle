@@ -9,7 +9,6 @@ server:
 	docker compose up -d --build
 
 server-clean:
-	echo "------------Cleaning Chapter 6 resources------------"
 	docker compose down -v
 	docker rmi -f ch6-api-with-model
 

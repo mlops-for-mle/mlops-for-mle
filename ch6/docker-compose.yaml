@@ -2,9 +2,8 @@ version: "3"
 
 services:
   api-with-model:
-    platform: linux/amd64
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     ports:
       - 8000:8000

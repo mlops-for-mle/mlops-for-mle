@@ -1,12 +1,11 @@
 version: "3"
 
 services:
-  sink-data-subscriber:
-    platform: linux/amd64
+  data-subscriber:
     build:
-      context: ./docker/sink
+      context: ./
       dockerfile: Dockerfile
-    container_name: sink-data-subscriber
+    container_name: data-subscriber
 
 networks:
   default:

@@ -8,7 +8,6 @@ services:
       POSTGRES_USER: mlflowuser
       POSTGRES_PASSWORD: mlflowpassword
       POSTGRES_DB: mlflow
-      TZ: Asia/Seoul
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-U", "mlflowuser", "-d", "mlflow"]
       interval: 10s
@@ -32,11 +31,15 @@ services:
       retries: 3
 
   mlflow-server:
-    platform: linux/amd64
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     container_name: mlflow-server
+    depends_on:
+      mlflow-backend-store:
+        condition: service_healthy
+      mlflow-artifact-store:
+        condition: service_healthy
     ports:
       - 5001:5000
     environment:
@@ -53,11 +56,6 @@ services:
         --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflow \
         --default-artifact-root s3://mlflow/ \
         --host 0.0.0.0
-    depends_on:
-      mlflow-backend-store:
-        condition: service_healthy
-      mlflow-artifact-store:
-        condition: service_healthy
 
 networks:
   default:

@@ -6,7 +6,6 @@ server:
 	docker compose up -d
 
 server-clean:
-	echo "------------Cleaning Chapter 3 resources------------"
 	docker compose down -v
 	docker rmi -f ch3-mlflow-server minio/minio
 

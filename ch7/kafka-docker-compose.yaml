@@ -40,8 +40,8 @@ services:
 
   connect:
     build:
-      context: ./docker/connect
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: connect.Dockerfile
     container_name: connect
     depends_on:
       - broker
