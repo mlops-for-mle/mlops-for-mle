@@ -12,5 +12,4 @@ services:
 
 networks:
   default:
-    name: ch1_default
-    external: true
+    name: mlo-mle-network

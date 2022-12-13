@@ -58,3 +58,6 @@ services:
         condition: service_healthy
       mlflow-artifact-store:
         condition: service_healthy
+networks:
+  default:
+    name: mlo-mle-network
