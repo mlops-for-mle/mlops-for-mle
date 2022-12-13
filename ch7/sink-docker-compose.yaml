@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  sink-postgres-server:
+  postgres-server:
     image: postgres:14.0
     container_name: sink-postgres-server
     ports:
@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 5
 
-  sink-table-creator:
+  table-creator:
     platform: linux/amd64
     build:
       context: ./docker/sink

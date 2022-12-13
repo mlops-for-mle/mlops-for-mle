@@ -1,19 +1,19 @@
 kafka-server:
-	docker compose -f kafka-docker-compose.yaml up -d
+	docker compose -p ch7-kafka -f kafka-docker-compose.yaml up -d
 
 sink-server:
-	docker compose -f sink-docker-compose.yaml up -d
+	docker compose -p ch7-sink -f sink-docker-compose.yaml up -d
 
 kafka-clean:
-	docker compose -f kafka-docker-compose.yaml down -v
+	docker compose -p ch7-kafka down -v
 	docker rmi -f \
-		ch7-connect \
+		ch7-kafka-connect \
 		confluentinc/cp-kafka:7.3.0 \
 		confluentinc/cp-schema-registry:7.3.0 \
 		confluentinc/cp-zookeeper:7.3.0
 
 sink-clean:
-	docker compose -f sink-docker-compose.yaml down -v
+	docker compose -p ch7-sink down -v
 	docker rmi -f ch7-sink-table-creator
 
 source-connector:
