@@ -6,11 +6,11 @@ sink-server:
 
 kafka-clean:
 	docker compose -p kafka down -v
-	docker image prune -a -f
+	docker rmi -f kafka-connect || true
 
 sink-clean:
 	docker compose -p sink down -v
-	docker image prune -a -f
+	docker rmi -f sink-sink-table-creator
 
 source-connector:
 	curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @source_connector.json
@@ -30,14 +30,14 @@ server-clean:
 	make kafka-clean
 	make sink-clean
 
+source-db-connection:
+	PGPASSWORD=mypassword psql -h localhost -p 5432 -U myuser -d mydatabase
+
+sink-db-connection:
+	PGPASSWORD=sinkpassword psql -h localhost -p 5433 -U sinkuser -d sinkdatabase
+
 dependency:
 	make -C ../ch1/ server
 
 dependency-clean:
 	make -C ../ch1/ server-clean
-
-source-db-connection:
-	PGPASSWORD=sourcepassword psql -h localhost -p 5433 -U sourceuser -d sourcedatabase
-
-sink-db-connection:
-	PGPASSWORD=sinkpassword psql -h localhost -p 5434 -U sinkuser -d sinkdatabase

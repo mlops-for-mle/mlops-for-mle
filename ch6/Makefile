@@ -10,8 +10,8 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 6 resources------------"
-	docker compose -p api-serving down -v
-	docker image prune -a -f
+	docker compose down -v
+	docker rmi -f api-serving-api-with-model
 
 dependency:
 	make -C ../ch1/ server

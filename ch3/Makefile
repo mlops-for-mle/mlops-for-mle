@@ -7,8 +7,9 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 3 resources------------"
-	docker compose -p model-registry down -v
-	docker image prune -a -f
+	docker compose down -v
+	docker rmi -f model-registry-mlflow-server minio/minio
+	docker rmi -f postgres:14.0 || true
 
 dependency:
 	make -C ../ch1/ server

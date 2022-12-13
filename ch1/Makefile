@@ -7,5 +7,5 @@ server:
 
 server-clean:
 	echo "------------Cleaning Chapter 1 resources------------"
-	docker compose -p db down -v
-	docker image prune -a -f
+	docker compose down -v
+	docker rmi -f db-data-generator
