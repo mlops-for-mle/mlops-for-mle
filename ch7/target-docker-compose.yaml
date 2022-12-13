@@ -19,7 +19,7 @@ services:
   table-creator:
     build:
       context: .
-      dockerfile: db.Dockerfile
+      dockerfile: target.Dockerfile
     container_name: table-creator
     depends_on:
       target-postgres-server:
