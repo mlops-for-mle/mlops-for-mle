@@ -25,7 +25,7 @@ def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_data (
         id SERIAL PRIMARY KEY,
-        ts timestamp,
+        timestamp timestamp,
         sepal_length float8,
         sepal_width float8,
         petal_length float8,
@@ -41,9 +41,9 @@ def create_table(db_connect):
 def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_data
-        (ts, sepal_length, sepal_width, petal_length, petal_width, target)
+        (timestamp, sepal_length, sepal_width, petal_length, petal_width, target)
         VALUES (
-            '{str(datetime.now())}',
+            NOW(),
             {data.sepal_length},
             {data.sepal_width},
             {data.petal_length},
