@@ -1,3 +1,9 @@
+naive-server:
+	docker compose -p ch7-naive -f naive-docker-compose.yaml up -d
+
+naive-clean:
+	docker compose -p ch7-naive down -v
+
 kafka-server:
 	docker compose -p ch7-kafka -f kafka-docker-compose.yaml up -d
 
