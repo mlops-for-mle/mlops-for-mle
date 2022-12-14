@@ -1,5 +1,5 @@
 naive-server:
-	docker compose -p ch7-naive -f naivedocker-compose.yaml up -d
+	docker compose -p ch7-naive -f naive-docker-compose.yaml up -d
 
 naive-clean:
 	docker compose -p ch7-naive down -v
