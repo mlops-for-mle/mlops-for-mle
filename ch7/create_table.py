@@ -6,7 +6,10 @@ def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_data (
         id SERIAL PRIMARY KEY,
+<<<<<<< HEAD
         ts timestamp,
+=======
+>>>>>>> 41f1007572c433c458c3572a298c8d1275cd62d6
         sepal_length float8,
         sepal_width float8,
         petal_length float8,
