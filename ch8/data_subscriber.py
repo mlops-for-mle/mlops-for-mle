@@ -1,4 +1,5 @@
 # data_subscriber.py
+from datetime import datetime
 from json import loads
 
 import psycopg2
@@ -10,6 +11,7 @@ def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_prediction (
         id SERIAL PRIMARY KEY,
+        ts timestamp,
         iris_class int
     );"""
     print(create_table_query)
@@ -21,9 +23,11 @@ def create_table(db_connect):
 def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_prediction
-        (iris_class)
-        VALUES ({data["iris_class"]});
-    """
+        (ts, iris_class)
+        VALUES (
+            '{str(data["ts"])}',
+            {data["iris_class"]}
+        );"""
     print(insert_row_query)
     with db_connect.cursor() as cur:
         cur.execute(insert_row_query)
@@ -41,6 +45,7 @@ def subscribe_data(db_connect, consumer):
         )
 
         msg.value["payload"].pop("id", None)
+        _ts = msg.value["payload"].pop("ts", None)
         msg.value["payload"].pop("target", None)
 
         response = requests.post(
@@ -48,7 +53,9 @@ def subscribe_data(db_connect, consumer):
             json=msg.value["payload"],
             headers={"Content-Type": "application/json"},
         )
-        insert_data(db_connect, response.json())
+        inference_value = response.json()
+        inference_value["ts"] = str(datetime.fromtimestamp(_ts / 1000))
+        insert_data(db_connect, inference_value)
 
 
 if __name__ == "__main__":

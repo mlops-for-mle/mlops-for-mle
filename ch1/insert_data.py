@@ -1,4 +1,6 @@
 # insert_data.py
+from datetime import datetime
+
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris
@@ -20,8 +22,9 @@ def get_data():
 def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_data
-        (sepal_length, sepal_width, petal_length, petal_width, target)
+        (ts, sepal_length, sepal_width, petal_length, petal_width, target)
         VALUES (
+            {str(datetime.now())}
             {data.sepal_length},
             {data.sepal_width},
             {data.petal_length},
