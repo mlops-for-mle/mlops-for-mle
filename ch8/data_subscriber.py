@@ -1,5 +1,4 @@
 # data_subscriber.py
-from datetime import datetime
 from json import loads
 
 import psycopg2
@@ -54,7 +53,7 @@ def subscribe_data(db_connect, consumer):
             headers={"Content-Type": "application/json"},
         )
         inference_value = response.json()
-        inference_value["timestamp"] = str(datetime.fromtimestamp(_timestamp / 1000))
+        inference_value["timestamp"] = _timestamp
         insert_data(db_connect, inference_value)
 
 

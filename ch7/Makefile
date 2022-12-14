@@ -30,8 +30,8 @@ server:
 	make sink-connector
 
 server-clean:
-	make target-clean
-	make kafka-clean
+	make target-server-clean
+	make kafka-server-clean
 
 dependency:
 	make -C ../ch1/ server

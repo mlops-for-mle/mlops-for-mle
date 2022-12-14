@@ -1,9 +1,24 @@
+inference:
+	docker compose -p ch8-inference -f inference-docker-compose.yaml up -d
+
+dashboard:
+	docker compose -p ch8-dashboard -f grafana-docker-compose.yaml up -d
+
+inference-clean:
+	docker compose -p ch8-inference down -v
+	docker rmi -f ch8-dashboard-data-subscriber
+
+dashboard-clean:
+	docker compose -p ch8-dashboard down -v
+	docker rmi -f grafana/grafana
+
 server:
-	docker compose up -d
+	make inference
+	make dashboard
 
 server-clean:
-	docker compose down -v
-	docker rmi -f ch8-data-subscriber
+	make inference-clean
+	make dashboard-clean
 
 dependency:
 	make -C ../ch1/ server
