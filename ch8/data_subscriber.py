@@ -24,7 +24,7 @@ def insert_data(db_connect, data):
     INSERT INTO iris_prediction
         (timestamp, iris_class)
         VALUES (
-            '{str(data["timestamp"])}',
+            '{data["timestamp"]}',
             {data["iris_class"]}
         );"""
     print(insert_row_query)
