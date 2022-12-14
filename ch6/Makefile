@@ -21,3 +21,11 @@ dependency:
 dependency-clean:
 	make -C ../ch3/ server-clean
 	make -C ../ch1/ server-clean
+
+all:
+	make dependency
+	make server
+
+all-clean:
+	make server-clean
+	make dependency-clean
