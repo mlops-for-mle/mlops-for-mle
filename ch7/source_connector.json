@@ -11,6 +11,11 @@
         "topic.creation.default.replication.factor": 1,
         "mode": "incrementing",
         "incrementing.column.name": "id",
-        "tasks.max": 2
+        "tasks.max": 2,
+        "transforms": "TimestampConverter",
+        "transforms.TimestampConverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+        "transforms.TimestampConverter.field": "timestamp",
+        "transforms.TimestampConverter.format": "yyyy-MM-dd HH:mm:ss.S",
+        "transforms.TimestampConverter.target.type": "string"
     }
 }

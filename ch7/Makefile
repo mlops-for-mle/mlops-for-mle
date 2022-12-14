@@ -1,7 +1,7 @@
 kafka-server:
 	docker compose -p ch7-kafka -f kafka-docker-compose.yaml up -d
 
-kafka-clean:
+kafka-server-clean:
 	docker compose -p ch7-kafka down -v
 	docker rmi -f \
 		ch7-kafka-connect \
@@ -12,7 +12,7 @@ kafka-clean:
 target-server:
 	docker compose -p ch7-target -f target-docker-compose.yaml up -d
 
-target-clean:
+target-server-clean:
 	docker compose -p ch7-target down -v
 	docker rmi -f ch7-target-table-creator
 
