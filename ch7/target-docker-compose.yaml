@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  target-postgres-server:
+    image: postgres:14.0
+    container_name: target-postgres-server
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: targetuser
+      POSTGRES_PASSWORD: targetpassword
+      POSTGRES_DB: targetdatabase
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "targetuser", "-d", "targetdatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  table-creator:
+    build:
+      context: .
+      dockerfile: target.Dockerfile
+    container_name: table-creator
+    depends_on:
+      target-postgres-server:
+        condition: service_healthy
+
+networks:
+  default:
+    name: mlops-network
+    external: true

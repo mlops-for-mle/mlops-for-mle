@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  api-with-model:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    container_name: api-with-model
+
+networks:
+  default:
+    name: mlops-network
+    external: true

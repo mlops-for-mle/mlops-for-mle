@@ -8,7 +8,6 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
-      TZ: Asia/Seoul
     ports:
       - 5432:5432
     restart: unless-stopped
@@ -21,11 +20,13 @@ services:
   data-generator:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     container_name: data-generator
-    environment:
-      TZ: Asia/Seoul
     command: ["postgres-server"]
     depends_on:
       postgres-server:
         condition: service_healthy
+
+networks:
+  default:
+    name: mlops-network
