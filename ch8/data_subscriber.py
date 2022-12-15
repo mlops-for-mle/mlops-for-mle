@@ -71,6 +71,6 @@ if __name__ == "__main__":
         bootstrap_servers="broker:29092",
         auto_offset_reset="earliest",
         group_id="iris-data-consumer-group",
-        value_deserializer=lambda x: loads(x.decode("utf-8")),
+        value_deserializer=lambda x: loads(x),
     )
     subscribe_data(db_connect, consumer)
