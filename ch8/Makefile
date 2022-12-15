@@ -1,9 +1,24 @@
+stream:
+	docker compose -p ch8-stream -f stream-docker-compose.yaml up -d
+
+dashboard:
+	docker compose -p ch8-dashboard -f grafana-docker-compose.yaml up -d
+
+stream-clean:
+	docker compose -p ch8-stream down -v
+	docker rmi -f ch8-dashboard-data-subscriber
+
+dashboard-clean:
+	docker compose -p ch8-dashboard down -v
+	docker rmi -f grafana/grafana
+
 server:
-	docker compose up -d
+	make stream
+	make dashboard
 
 server-clean:
-	docker compose down -v
-	docker rmi -f ch8-data-subscriber
+	make stream-clean
+	make dashboard-clean
 
 dependency:
 	make -C ../ch1/ server

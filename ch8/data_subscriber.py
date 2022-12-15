@@ -10,6 +10,7 @@ def create_table(db_connect):
     create_table_query = """
     CREATE TABLE IF NOT EXISTS iris_prediction (
         id SERIAL PRIMARY KEY,
+        timestamp timestamp,
         iris_class int
     );"""
     print(create_table_query)
@@ -21,9 +22,11 @@ def create_table(db_connect):
 def insert_data(db_connect, data):
     insert_row_query = f"""
     INSERT INTO iris_prediction
-        (iris_class)
-        VALUES ({data["iris_class"]});
-    """
+        (timestamp, iris_class)
+        VALUES (
+            '{data["timestamp"]}',
+            {data["iris_class"]}
+        );"""
     print(insert_row_query)
     with db_connect.cursor() as cur:
         cur.execute(insert_row_query)
@@ -40,15 +43,17 @@ def subscribe_data(db_connect, consumer):
             f"Value : {msg.value}\n",
         )
 
-        msg.value["payload"].pop("id", None)
-        msg.value["payload"].pop("target", None)
+        msg.value["payload"].pop("id")
+        msg.value["payload"].pop("target")
+        ts = msg.value["payload"].pop("timestamp")
 
         response = requests.post(
             url="http://api-with-model:8000/predict",
             json=msg.value["payload"],
             headers={"Content-Type": "application/json"},
-        )
-        insert_data(db_connect, response.json())
+        ).json()
+        response["timestamp"] = ts
+        insert_data(db_connect, response)
 
 
 if __name__ == "__main__":
