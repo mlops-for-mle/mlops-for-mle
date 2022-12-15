@@ -43,18 +43,17 @@ def subscribe_data(db_connect, consumer):
             f"Value : {msg.value}\n",
         )
 
-        msg.value["payload"].pop("id", None)
-        _timestamp = msg.value["payload"].pop("timestamp", None)
-        msg.value["payload"].pop("target", None)
+        msg.value["payload"].pop("id")
+        msg.value["payload"].pop("target")
+        ts = msg.value["payload"].pop("timestamp")
 
         response = requests.post(
             url="http://api-with-model:8000/predict",
             json=msg.value["payload"],
             headers={"Content-Type": "application/json"},
-        )
-        inference_value = response.json()
-        inference_value["timestamp"] = _timestamp
-        insert_data(db_connect, inference_value)
+        ).json()
+        response["timestamp"] = ts
+        insert_data(db_connect, response)
 
 
 if __name__ == "__main__":
