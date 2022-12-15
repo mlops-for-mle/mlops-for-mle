@@ -3,7 +3,7 @@ version: "3"
 services:
   data-subscriber:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     container_name: data-subscriber
 
