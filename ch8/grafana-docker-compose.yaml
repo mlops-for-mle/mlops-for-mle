@@ -7,7 +7,7 @@ services:
      - 3000:3000
     environment:
       GF_SECURITY_ADMIN_USER: dashboarduser
-      GF_SECURITY_ADMIN_PASSWORD: dashboardpw
+      GF_SECURITY_ADMIN_PASSWORD: dashboardpassword
 
 networks:
   default:
