@@ -56,8 +56,3 @@ services:
         --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflow \
         --default-artifact-root s3://mlflow/ \
         --host 0.0.0.0
-
-networks:
-  default:
-    name: mlops-network
-    external: true
