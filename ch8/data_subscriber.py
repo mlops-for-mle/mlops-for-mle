@@ -70,8 +70,7 @@ if __name__ == "__main__":
         "postgres-source-iris_data",
         bootstrap_servers="broker:29092",
         auto_offset_reset="earliest",
-        enable_auto_commit=True,
-        group_id="iris",
+        group_id="iris-data-consumer-group",
         value_deserializer=lambda x: loads(x.decode("utf-8")),
     )
     subscribe_data(db_connect, consumer)
