@@ -1,5 +1,4 @@
 # db_train.py
-
 import joblib
 import pandas as pd
 import psycopg2
