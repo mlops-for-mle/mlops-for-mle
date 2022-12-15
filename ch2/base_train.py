@@ -1,5 +1,4 @@
 # base_train.py
-
 import joblib
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
