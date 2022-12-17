@@ -1,4 +1,4 @@
-# insert_data.py
+# data_insertion.py
 import pandas as pd
 import psycopg2
 from sklearn.datasets import load_iris

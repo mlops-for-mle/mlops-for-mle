@@ -1,4 +1,4 @@
-# create_table.py
+# table_creator.py
 import psycopg2
 
 
