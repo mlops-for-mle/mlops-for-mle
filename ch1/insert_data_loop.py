@@ -1,6 +1,5 @@
 # insert_data_loop.py
 import time
-from datetime import datetime
 
 import pandas as pd
 import psycopg2

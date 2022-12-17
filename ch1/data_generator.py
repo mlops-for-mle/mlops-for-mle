@@ -1,7 +1,6 @@
 # data_generator.py
 import time
 from argparse import ArgumentParser
-from datetime import datetime
 
 import pandas as pd
 import psycopg2
