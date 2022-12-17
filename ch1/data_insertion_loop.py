@@ -1,4 +1,4 @@
-# insert_data_loop.py
+# data_insertion_loop.py
 import time
 
 import pandas as pd
