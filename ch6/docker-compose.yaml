@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: api-with-model
     ports:
       - 8000:8000
-    container_name: api-with-model
 
 networks:
   default:
