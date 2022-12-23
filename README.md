@@ -24,7 +24,7 @@ $ cd part_no
 ```bash
 $ make server
 ```
-단, 각 파트마다 선행되어야 하는 부분이 있는 경우 `make dependency` 명령어를 수행하여 선행 파트의 구현체를 띄워야 합니다.
+단, 각 파트마다 선행되어야 하는 부분이 있는 경우 `make dependency` 명령어를 수행하여 선행 파트의 구현체를 띄워야합니다.
 ```bash
 $ make dependency
 $ make server
