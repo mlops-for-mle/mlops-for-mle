@@ -8,6 +8,16 @@ services:
     container_name: api-with-model
     ports:
       - 8000:8000
+    healthcheck:
+      test:
+        - curl -X POST http://localhost:8000/predict
+        - -H
+        - "Content-Type: application/json"
+        - -d
+        - '{"sepal_length": 6.7, "sepal_width": 3.3, "petal_length": 5.7, "petal_width": 2.1}'
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   default:

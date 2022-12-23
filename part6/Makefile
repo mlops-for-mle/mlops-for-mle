@@ -6,7 +6,7 @@ app:
 	uvicorn app:app --reload
 
 server:
-	docker compose up -d --build
+	docker compose up -d
 
 server-clean:
 	docker compose down -v
