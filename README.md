@@ -29,7 +29,7 @@ $ make server
 $ make dependency
 $ make server
 ```
-두 가지 작업을 한번에 하기위하여 `make all` 명령어를 사용하실수 있습니다.
+두 가지 작업을 한번에 실행하려면 `make all` 명령어를 사용해주세요.
 ```bash
 $ make all
 ```
