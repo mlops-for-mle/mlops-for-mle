@@ -20,7 +20,7 @@ part_no
 ```bash
 $ cd part_no
 ```
-이동 후 같은 디렉토리에서 `make server` 명령어를 통해 파트의 구현체를 바로 띄워볼 수 있습니다.
+이동 후 같은 디렉토리에서 `make server` 명령어를 통해 파트의 구현체를 바로 실행해볼 수 있습니다.
 ```bash
 $ make server
 ```
