@@ -42,6 +42,6 @@ $ make server-clean
 ```bash
 $ make dependency-clean
 ```
+두 가지 작업을 한번에 종료하려면 `make all-clean` 명령어를 사용해주세요.
 ```bash
 $ make all-clean
-```
