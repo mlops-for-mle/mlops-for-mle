@@ -7,7 +7,7 @@ server:
 
 server-clean:
 	docker compose down -v
-	docker rmi -f ch1-data-generator postgres:14.0
+	docker rmi -f part1-data-generator postgres:14.0
 
 db-connection:
 	PGPASSWORD=mypassword psql -h localhost -p 5432 -U myuser -d mydatabase

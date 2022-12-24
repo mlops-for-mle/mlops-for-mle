@@ -7,13 +7,13 @@ server:
 
 server-clean:
 	docker compose down -v
-	docker rmi -f ch3-mlflow-server minio/minio
+	docker rmi -f part3-mlflow-server minio/minio
 
 dependency:
-	make -C ../ch1/ server
+	make -C ../part1/ server
 
 dependency-clean:
-	make -C ../ch1/ server-clean
+	make -C ../part1/ server-clean
 
 all:
 	make dependency

@@ -10,17 +10,17 @@ server:
 
 server-clean:
 	docker compose down -v
-	docker rmi -f ch6-api-with-model
+	docker rmi -f part6-api-with-model
 
 dependency:
-	make -C ../ch1/ server
+	make -C ../part1/ server
 	sleep 100
-	make -C ../ch3/ server
-	python ../ch3/save_model_to_registry.py
+	make -C ../part3/ server
+	python ../part3/save_model_to_registry.py
 
 dependency-clean:
-	make -C ../ch3/ server-clean
-	make -C ../ch1/ server-clean
+	make -C ../part3/ server-clean
+	make -C ../part1/ server-clean
 
 all:
 	make dependency
