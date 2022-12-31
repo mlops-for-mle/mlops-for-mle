@@ -67,7 +67,7 @@ if __name__ == "__main__":
     create_table(db_connect)
 
     consumer = KafkaConsumer(
-        "postgres-source-iris_data",
+        topics="postgres-source-iris_data",
         bootstrap_servers="broker:29092",
         auto_offset_reset="earliest",
         group_id="iris-data-consumer-group",
