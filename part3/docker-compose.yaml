@@ -7,9 +7,9 @@ services:
     environment:
       POSTGRES_USER: mlflowuser
       POSTGRES_PASSWORD: mlflowpassword
-      POSTGRES_DB: mlflow
+      POSTGRES_DB: mlflowdatabase
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "mlflowuser", "-d", "mlflow"]
+      test: ["CMD", "pg_isready", "-q", "-U", "mlflowuser", "-d", "mlflowdatabase"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -53,6 +53,6 @@ services:
         mc config host add mlflowminio http://mlflow-artifact-store:9000 minio miniostorage &&
         mc mb --ignore-existing mlflowminio/mlflow
         mlflow server \
-        --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflow \
+        --backend-store-uri postgresql://mlflowuser:mlflowpassword@mlflow-backend-store/mlflowdatabase \
         --default-artifact-root s3://mlflow/ \
         --host 0.0.0.0
