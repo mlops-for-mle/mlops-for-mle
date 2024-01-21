@@ -25,10 +25,10 @@ services:
       MINIO_ROOT_PASSWORD: miniostorage
     command: server /data/minio --console-address :9001
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   mlflow-server:
     build:
