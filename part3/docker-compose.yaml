@@ -15,7 +15,7 @@ services:
       retries: 5
 
   mlflow-artifact-store:
-    image: minio/minio
+    image: minio/minio:RELEASE.2024-01-18T22-51-28Z
     container_name: mlflow-artifact-store
     ports:
       - 9000:9000
@@ -25,10 +25,10 @@ services:
       MINIO_ROOT_PASSWORD: miniostorage
     command: server /data/minio --console-address :9001
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   mlflow-server:
     build:
